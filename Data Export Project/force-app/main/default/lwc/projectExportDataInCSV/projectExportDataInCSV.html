@@ -1,0 +1,120 @@
+<template>
+  <lightning-card>
+  
+    <!-- Header -->
+    <div class="header slds-media slds-media_center" slot="title">
+      <lightning-icon class="slds-m-right_small" icon-name="doctype:csv" alternative-text="CSV file" title="CSV"></lightning-icon>
+      {header}
+    </div>
+
+    <div class="action" slot="actions">
+      <div class="slds-media">
+	  
+        <!-- sObject selection -->
+        <div class="slds-media__figure combobox_container">
+          <lightning-combobox
+            class="combobox"
+            name="sObjectSelection"
+            placeholder="Select an Object..."
+            options={sObjectOptions}
+            onchange={handleElementChange}
+            value={selectedObject}
+            disabled={isComboboxDisabled}
+          ></lightning-combobox>
+        </div>
+
+        <!-- Action Buttons -->
+        <template if:true={isComboboxDisabled}>
+          <div class="slds-media__body action_container">
+            <template if:true={isDisplayFetchFields}>
+              <lightning-button label="Fetch" variant="success" onclick={handleDataExporting} title="Fetch Data" alternative-text="Fetch">
+              </lightning-button>
+            </template>
+
+            <template if:true={isDisplayFetchRecords}>
+              <lightning-button-icon
+                class="button_icon"
+                icon-name="utility:download"
+                variant="brand"
+                onclick={handleExportDataInCSV}
+                title="Export Data"
+                alternative-text="Download"
+              ></lightning-button-icon>
+            </template>
+
+            <lightning-button-icon
+              icon-name="utility:sync"
+              variant="brand"
+              onclick={handleRefreshComponent}
+              title="Reset Everything"
+              alternative-text="Reset"
+              class="slds-m-left_small button_icon"
+            ></lightning-button-icon>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="slds-p-horizontal_small">
+      <lightning-spinner lwc:if={isDisplaySpinner} alternative-text="Loading" size="medium"></lightning-spinner>
+
+      <template if:true={isComboboxDisabled}>
+        <template if:true={isDisplayFetchFields}>
+          <lightning-dual-listbox
+            label={fieldsDualListLabel}
+            name="sObjectFields"
+            source-label="Available Fields"
+            selected-label="Selected Fields"
+            options={sObjectFieldsOptions}
+            required-options={sObjectRequiredOptions}
+            onchange={handleElementChange}
+            size="14"
+          ></lightning-dual-listbox>
+        </template>
+
+        <template if:true={isDisplayFetchRecords}>
+          <div class="datatable slds-m-top_small">
+            <lightning-datatable key-field="id" data={sObjectRecords} columns={columns} hide-checkbox-column> </lightning-datatable>
+          </div>
+        </template>
+      </template>
+      <template if:false={isComboboxDisabled}>
+        <div class="slds-illustration slds-illustration_large slds-m-top_medium" aria-hidden="true">
+          <img src="/projRes/ui-home-private/emptyStates/noAssistant.svg" class="slds-illustration__svg" alt="" />
+        </div>
+      </template>
+    </div>
+  </lightning-card>
+
+  <!-- Modal to get the folder name (where all the records are geting stored) -->
+  <template if:true={isDisplayFolderModal}>
+    <section aria-modal="true" class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container">
+        <lightning-icon
+          class="slds-modal__close close_icon"
+          icon-name="utility:close"
+          size="small"
+          onclick={handleCloseModal}
+        ></lightning-icon>
+
+        <div class="slds-modal__content slds-p-around_small" style="border-radius: 5px 5px 0 0">
+          <lightning-input type="text" label="Folder Name" name="csvFileName" onchange={handleElementChange} required> </lightning-input>
+          <template if:true={csvFileName}>
+            <p class="slds-p-top_xxx-small"><strong>File name:</strong> {csvFileName}.csv</p>
+          </template>
+        </div>
+
+        <footer class="slds-modal__footer">
+          <lightning-button
+            variant="success"
+            label="Download"
+            onclick={handleDownloadCSVFile}
+            class="slds-p-around_x-small"
+          ></lightning-button>
+        </footer>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+</template>

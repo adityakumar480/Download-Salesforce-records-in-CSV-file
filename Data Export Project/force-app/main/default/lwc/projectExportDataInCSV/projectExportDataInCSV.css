@@ -1,0 +1,60 @@
+.header {
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 1.9px;
+}
+
+.action {
+  margin: -3px -6px 0 0;
+}
+
+.action .combobox_container {
+  margin-right: 1px;
+}
+
+.action .combobox {
+  margin-top: -20px;
+  width: 200px;
+}
+
+.action_container {
+  margin-left: 10px;
+}
+
+.datatable {
+  border: 1px solid #b9b9b9;
+}
+
+lightning-button {
+  --slds-c-button-success-color-background: #2e844a;
+  --slds-c-button-success-color-border: #2e844a;
+  --slds-c-button-success-text-color: #fff;
+}
+
+lightning-button:hover {
+  --slds-c-button-success-color-background-hover: #cdefc4;
+  --slds-c-button-success-color-border-hover: #cdefc4;
+  --slds-c-button-success-text-color-hover: #2e844a;
+}
+
+.button_icon {
+  --lwc-brandAccessible: #2e844a;
+}
+
+.button_icon:hover {
+  --slds-g-color-neutral-base-100: #2e844a;
+  --lwc-brandAccessibleActive: #cdefc4;
+}
+
+.close_icon {
+  padding: 4px;
+  --slds-g-color-neutral-base-100: #2e844a;
+  --sds-c-icon-color-foreground-default: #fff;
+}
+
+.close_icon:hover {
+  cursor: pointer;
+  padding: 4px;
+  --slds-g-color-neutral-base-100: #cdefc4;
+  --sds-c-icon-color-foreground-default: #2e844a;
+}

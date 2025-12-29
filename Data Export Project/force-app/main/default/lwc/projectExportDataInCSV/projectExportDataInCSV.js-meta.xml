@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+	<apiVersion>57.0</apiVersion>
+	<isExposed>true</isExposed>
+	<masterLabel>
+		Export Record's in CSV file
+	</masterLabel>
+	<description>
+		This will fetch all records of selected object (Lead, Account, Contact, Opportunity, Case only) with its selected fields.
+		And we can export the data in CSV file.
+	</description>
+	<targets>
+		<target>lightning__HomePage</target>
+	</targets>
+</LightningComponentBundle>
